@@ -1,0 +1,128 @@
+link github của project: 
+
+lệnh: cd Desktop
+
+tạo file input trong thư mục input có nội dung sau:
+hi hi
+hello everyone
+hahha
+Goodbye, see you
+Hadoop
+Hello
+A book is a written or printed work consisting of pages glued or sewn together and bound with a cover.
+
+lệnh: hadoop fs -mkdir /input
+
+lệnh: hadoop jar target/WordCount-1.0-SNAPSHOT.jar nmddl.lap2.WordCount /input/input.txt /output
+kết quả
+2023-09-20 00:14:33,309 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2023-09-20 00:14:33,417 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2023-09-20 00:14:33,549 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2023-09-20 00:14:33,566 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/GF66/.staging/job_1695143614700_0001
+2023-09-20 00:14:34,224 INFO mapred.FileInputFormat: Total input files to process : 1
+2023-09-20 00:14:34,279 INFO mapreduce.JobSubmitter: number of splits:2
+2023-09-20 00:14:34,385 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1695143614700_0001
+2023-09-20 00:14:34,385 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2023-09-20 00:14:34,503 INFO conf.Configuration: resource-types.xml not found
+2023-09-20 00:14:34,503 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2023-09-20 00:14:34,647 INFO impl.YarnClientImpl: Submitted application application_1695143614700_0001
+2023-09-20 00:14:34,673 INFO mapreduce.Job: The url to track the job: http://DESKTOP-185C66O:8088/proxy/application_1695143614700_0001/
+2023-09-20 00:14:34,675 INFO mapreduce.Job: Running job: job_1695143614700_0001
+2023-09-20 00:14:40,775 INFO mapreduce.Job: Job job_1695143614700_0001 running in uber mode : false
+2023-09-20 00:14:40,776 INFO mapreduce.Job:  map 0% reduce 0%
+2023-09-20 00:14:45,837 INFO mapreduce.Job:  map 100% reduce 0%
+2023-09-20 00:14:49,879 INFO mapreduce.Job:  map 100% reduce 100%
+2023-09-20 00:14:49,883 INFO mapreduce.Job: Job job_1695143614700_0001 completed successfully
+2023-09-20 00:14:49,942 INFO mapreduce.Job: Counters: 54
+        File System Counters
+                FILE: Number of bytes read=320
+                FILE: Number of bytes written=797127
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=426
+                HDFS: Number of bytes written=206
+                HDFS: Number of read operations=11
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters
+                Launched map tasks=2
+                Launched reduce tasks=1
+                Data-local map tasks=2
+                Total time spent by all maps in occupied slots (ms)=4710
+                Total time spent by all reduces in occupied slots (ms)=2015
+                Total time spent by all map tasks (ms)=4710
+                Total time spent by all reduce tasks (ms)=2015
+                Total vcore-milliseconds taken by all map tasks=4710
+                Total vcore-milliseconds taken by all reduce tasks=2015
+                Total megabyte-milliseconds taken by all map tasks=4823040
+                Total megabyte-milliseconds taken by all reduce tasks=2063360
+        Map-Reduce Framework
+                Map input records=7
+                Map output records=30
+                Map output bytes=280
+                Map output materialized bytes=326
+                Input split bytes=178
+                Combine input records=30
+                Combine output records=27
+                Reduce input groups=27
+                Reduce shuffle bytes=326
+                Reduce input records=27
+                Reduce output records=27
+                Spilled Records=54
+                Shuffled Maps =2
+                Failed Shuffles=0
+                Merged Map outputs=2
+                GC time elapsed (ms)=8
+                CPU time spent (ms)=918
+                Physical memory (bytes) snapshot=963805184
+                Virtual memory (bytes) snapshot=1376882688
+                Total committed heap usage (bytes)=792723456
+                Peak Map Physical memory (bytes)=362528768
+                Peak Map Virtual memory (bytes)=458420224
+                Peak Reduce Physical memory (bytes)=247300096
+                Peak Reduce Virtual memory (bytes)=462741504
+        Shuffle Errors
+                BAD_ID=0
+                CONNECTION=0
+                IO_ERROR=0
+                WRONG_LENGTH=0
+                WRONG_MAP=0
+                WRONG_REDUCE=0
+        File Input Format Counters
+                Bytes Read=248
+        File Output Format Counters
+                Bytes Written=206
+
+
+lệnh: hadoop fs -cat  /output/part-00000
+kết quả
+A       1
+Goodbye,        1
+Hadoop  1
+Hello   1
+a       2
+and     1
+book    1
+bound   1
+consisting      1
+cover.  1
+everyone        1
+glued   1
+hahha   1
+hello   1
+hi      2
+is      1
+of      1
+or      2
+pages   1
+printed 1
+see     1
+sewn    1
+together        1
+with    1
+work    1
+written 1
+you     1
+
