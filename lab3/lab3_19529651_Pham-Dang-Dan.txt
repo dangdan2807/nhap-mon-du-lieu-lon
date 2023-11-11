@@ -1,0 +1,784 @@
+PS C:\Users\GF66\Desktop\Disk_D\nhap_mon_dl_lon\lab3> docker build -t myhadoop .
+[+] Building 4.9s (18/18) FINISHED                                                                                                                                              docker:default
+ => [internal] load .dockerignore                                                                                                                                                         0.0s
+ => => transferring context: 2B                                                                                                                                                           0.0s 
+ => [internal] load build definition from dockerfile                                                                                                                                      0.0s 
+ => => transferring dockerfile: 1.82kB                                                                                                                                                    0.0s 
+ => [internal] load metadata for docker.io/library/ubuntu:latest                                                                                                                          2.1s 
+ => [ 1/13] FROM docker.io/library/ubuntu:latest@sha256:aabed3296a3d45cede1dc866a24476c4d7e093aa806263c27ddaadbdce3c1054                                                                  0.0s
+ => [internal] load build context                                                                                                                                                         0.0s 
+ => => transferring context: 267B                                                                                                                                                         0.0s 
+ => CACHED [ 2/13] RUN   apt-get update && apt-get install -y   ssh   rsync   vim;                                                                                                        0.0s 
+ => CACHED [ 4/13] RUN apt-get update &&     apt-get install ca-certificates-java &&     apt-get clean &&     update-ca-certificates -f;                                                  0.0s 
+ => CACHED [ 5/13] RUN export JAVA_HOME                                                                                                                                                   0.0s 
+ => CACHED [ 6/13] RUN   wget https://downloads.apache.org/hadoop/common/stable/hadoop-3.3.6.tar.gz &&   tar -xzvf hadoop-3.3.6.tar.gz                                                    0.0s 
+ => CACHED [ 7/13] RUN  mv hadoop-3.3.6 /opt/hadoop                                                                                                                                       0.0s 
+ => [ 8/13] RUN  echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /opt/hadoop/etc/hadoop/hadoop-env.sh                                                                        0.2s 
+ => [ 9/13] RUN  echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hadoop/bin" >> ~/.bashrc                                                                    0.3s 
+ => [10/13] RUN   ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa &&   cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&   chmod 0600 ~/.ssh/authorized_keys                                    1.9s 
+ => [11/13] ADD config/*xml /opt/hadoop/etc/hadoop/                                                                                                                                       0.0s 
+ => [12/13] ADD config/ssh_config /root/.ssh/config                                                                                                                                       0.0s 
+ => [13/13] ADD config/start-hadoop.sh start-hadoop.sh                                                                                                                                    0.0s 
+ => exporting to image                                                                                                                                                                    0.1s 
+ => => exporting layers                                                                                                                                                                   0.1s 
+ => => writing image sha256:1211ed3802f67b4615c7996cb9ce1fd31e160e4b647c3b2e6396f44b98711253                                                                                              0.0s 
+ => => naming to docker.io/library/myhadoop                                                                                                                                               0.0s 
+
+What's Next?
+  1. Sign in to your Docker account → docker login
+  2. View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\GF66\Desktop\Disk_D\nhap_mon_dl_lon\lab3> docker run -it myhadoop bash
+root@33ccf85cf971:/# hadoop version
+Hadoop 3.3.6
+Source code repository https://github.com/apache/hadoop.git -r 1be78238728da9266a4f88195058f08fd012bf9c
+Compiled by ubuntu on 2023-06-18T08:22Z
+Compiled on platform linux-x86_64
+Compiled with protoc 3.7.1
+From source with checksum 5652179ad55f76cb287d9c633bb53bbd
+This command was run using /opt/hadoop/share/hadoop/common/hadoop-common-3.3.6.jar
+root@33ccf85cf971:/# bash start-hadoop.sh
+ * Starting OpenBSD Secure Shell server sshd                                                                                                                                            [ OK ] 
+WARNING: /opt/hadoop/logs does not exist. Creating.
+2023-09-25 02:51:33,030 INFO namenode.NameNode: STARTUP_MSG: 
+/************************************************************
+STARTUP_MSG: Starting NameNode
+STARTUP_MSG:   host = 33ccf85cf971/172.17.0.2
+STARTUP_MSG:   args = [-format]
+STARTUP_MSG:   version = 3.3.6
+STARTUP_MSG:   classpath = /opt/hadoop/etc/hadoop:/opt/hadoop/share/hadoop/common/lib/curator-recipes-5.2.0.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-smtp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jetty-security-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-udt-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jetty-util-ajax-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-haproxy-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/commons-net-3.9.0.jar:/opt/hadoop/share/hadoop/common/lib/kerby-util-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-native-epoll-4.1.89.Final-linux-x86_64.jar:/opt/hadoop/share/hadoop/common/lib/javax.servlet-api-3.1.0.jar:/opt/hadoop/share/hadoop/common/lib/hadoop-shaded-guava-1.1.1.jar:/opt/hadoop/share/hadoop/common/lib/kerby-pkix-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/jakarta.activation-api-1.2.1.jar:/opt/hadoop/share/hadoop/common/lib/paranamer-2.3.jar:/opt/hadoop/share/hadoop/common/lib/kerb-core-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/kerby-asn1-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/jackson-core-2.12.7.jar:/opt/hadoop/share/hadoop/common/lib/checker-qual-2.5.2.jar:/opt/hadoop/share/hadoop/common/lib/jetty-xml-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/snappy-java-1.1.8.2.jar:/opt/hadoop/share/hadoop/common/lib/jul-to-slf4j-1.7.36.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-redis-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-stomp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/kerb-admin-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/stax2-api-4.2.1.jar:/opt/hadoop/share/hadoop/common/lib/hadoop-shaded-protobuf_3_7-1.1.1.jar:/opt/hadoop/share/hadoop/common/lib/kerb-identity-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/commons-cli-1.2.jar:/opt/hadoop/share/hadoop/common/lib/j2objc-annotations-1.1.jar:/opt/hadoop/share/hadoop/common/lib/metrics-core-3.2.4.jar:/opt/hadoop/share/hadoop/common/lib/jetty-server-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/commons-io-2.8.0.jar:/opt/hadoop/share/hadoop/common/lib/jackson-core-asl-1.9.13.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-classes-epoll-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/commons-configuration2-2.8.0.jar:/opt/hadoop/share/hadoop/common/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/avro-1.7.7.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-rxtx-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/hadoop-auth-3.3.6.jar:/opt/hadoop/share/hadoop/common/lib/netty-buffer-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jettison-1.5.4.jar:/opt/hadoop/share/hadoop/common/lib/re2j-1.1.jar:/opt/hadoop/share/hadoop/common/lib/jackson-mapper-asl-1.9.13.jar:/opt/hadoop/share/hadoop/common/lib/zookeeper-3.6.3.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/curator-framework-5.2.0.jar:/opt/hadoop/share/hadoop/common/lib/netty-resolver-dns-native-macos-4.1.89.Final-osx-aarch_64.jar:/opt/hadoop/share/hadoop/common/lib/animal-sniffer-annotations-1.17.jar:/opt/hadoop/share/hadoop/common/lib/jsr305-3.0.2.jar:/opt/hadoop/share/hadoop/common/lib/dnsjava-2.1.7.jar:/opt/hadoop/share/hadoop/common/lib/commons-compress-1.21.jar:/opt/hadoop/share/hadoop/common/lib/netty-all-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/netty-resolver-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/kerb-server-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/jersey-json-1.20.jar:/opt/hadoop/share/hadoop/common/lib/commons-text-1.10.0.jar:/opt/hadoop/share/hadoop/common/lib/commons-codec-1.15.jar:/opt/hadoop/share/hadoop/common/lib/jetty-io-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/netty-handler-ssl-ocsp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/guava-27.0-jre.jar:/opt/hadoop/share/hadoop/common/lib/kerby-xdr-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/httpcore-4.4.13.jar:/opt/hadoop/share/hadoop/common/lib/gson-2.9.0.jar:/opt/hadoop/share/hadoop/common/lib/jsp-api-2.1.jar:/opt/hadoop/share/hadoop/common/lib/commons-daemon-1.0.13.jar:/opt/hadoop/share/hadoop/common/lib/jetty-util-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/httpclient-4.5.13.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-native-unix-common-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/zookeeper-jute-3.6.3.jar:/opt/hadoop/share/hadoop/common/lib/hadoop-annotations-3.3.6.jar:/opt/hadoop/share/hadoop/common/lib/jaxb-api-2.2.11.jar:/opt/hadoop/share/hadoop/common/lib/jetty-http-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-native-epoll-4.1.89.Final-linux-aarch_64.jar:/opt/hadoop/share/hadoop/common/lib/netty-common-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/kerb-simplekdc-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/audience-annotations-0.5.0.jar:/opt/hadoop/share/hadoop/common/lib/netty-resolver-dns-classes-macos-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jsr311-api-1.1.1.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-http2-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jetty-webapp-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-http-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-memcache-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jersey-servlet-1.19.4.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-native-kqueue-4.1.89.Final-osx-aarch_64.jar:/opt/hadoop/share/hadoop/common/lib/protobuf-java-2.5.0.jar:/opt/hadoop/share/hadoop/common/lib/curator-client-5.2.0.jar:/opt/hadoop/share/hadoop/common/lib/jersey-server-1.19.4.jar:/opt/hadoop/share/hadoop/common/lib/jersey-core-1.19.4.jar:/opt/hadoop/share/hadoop/common/lib/commons-lang3-3.12.0.jar:/opt/hadoop/share/hadoop/common/lib/commons-logging-1.1.3.jar:/opt/hadoop/share/hadoop/common/lib/kerb-crypto-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/failureaccess-1.0.jar:/opt/hadoop/share/hadoop/common/lib/commons-math3-3.1.1.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-classes-kqueue-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar:/opt/hadoop/share/hadoop/common/lib/netty-resolver-dns-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/netty-handler-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jcip-annotations-1.0-1.jar:/opt/hadoop/share/hadoop/common/lib/commons-beanutils-1.9.4.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-dns-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/nimbus-jose-jwt-9.8.1.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-socks-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-xml-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/kerb-common-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/netty-resolver-dns-native-macos-4.1.89.Final-osx-x86_64.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-sctp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/kerby-config-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/kerb-util-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/woodstox-core-5.4.0.jar:/opt/hadoop/share/hadoop/common/lib/token-provider-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/kerb-client-1.0.1.jar:/opt/hadoop/share/hadoop/common/lib/jackson-databind-2.12.7.1.jar:/opt/hadoop/share/hadoop/common/lib/netty-handler-proxy-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/netty-transport-native-kqueue-4.1.89.Final-osx-x86_64.jar:/opt/hadoop/share/hadoop/common/lib/netty-codec-mqtt-4.1.89.Final.jar:/opt/hadoop/share/hadoop/common/lib/reload4j-1.2.22.jar:/opt/hadoop/share/hadoop/common/lib/slf4j-api-1.7.36.jar:/opt/hadoop/share/hadoop/common/lib/jsch-0.1.55.jar:/opt/hadoop/share/hadoop/common/lib/jackson-annotations-2.12.7.jar:/opt/hadoop/share/hadoop/common/lib/commons-collections-3.2.2.jar:/opt/hadoop/share/hadoop/common/lib/jetty-servlet-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/common/hadoop-common-3.3.6.jar:/opt/hadoop/share/hadoop/common/hadoop-nfs-3.3.6.jar:/opt/hadoop/share/hadoop/common/hadoop-registry-3.3.6.jar:/opt/hadoop/share/hadoop/common/hadoop-common-3.3.6-tests.jar:/opt/hadoop/share/hadoop/common/hadoop-kms-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs:/opt/hadoop/share/hadoop/hdfs/lib/curator-recipes-5.2.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-3.10.6.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-smtp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-security-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-udt-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-util-ajax-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/HikariCP-java7-2.4.12.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-haproxy-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/okhttp-4.9.3.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-net-3.9.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerby-util-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-native-epoll-4.1.89.Final-linux-x86_64.jar:/opt/hadoop/share/hadoop/hdfs/lib/javax.servlet-api-3.1.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/hadoop-shaded-guava-1.1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerby-pkix-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/jakarta.activation-api-1.2.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/paranamer-2.3.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-core-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerby-asn1-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/kotlin-stdlib-common-1.4.10.jar:/opt/hadoop/share/hadoop/hdfs/lib/jackson-core-2.12.7.jar:/opt/hadoop/share/hadoop/hdfs/lib/checker-qual-2.5.2.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-xml-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/snappy-java-1.1.8.2.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-redis-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-stomp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-admin-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/stax2-api-4.2.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/hadoop-shaded-protobuf_3_7-1.1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-identity-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-cli-1.2.jar:/opt/hadoop/share/hadoop/hdfs/lib/okio-2.8.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/j2objc-annotations-1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/metrics-core-3.2.4.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-server-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-io-2.8.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/jackson-core-asl-1.9.13.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-classes-epoll-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-configuration2-2.8.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/avro-1.7.7.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-rxtx-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/hadoop-auth-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-buffer-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jettison-1.5.4.jar:/opt/hadoop/share/hadoop/hdfs/lib/re2j-1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/jackson-mapper-asl-1.9.13.jar:/opt/hadoop/share/hadoop/hdfs/lib/zookeeper-3.6.3.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/curator-framework-5.2.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-resolver-dns-native-macos-4.1.89.Final-osx-aarch_64.jar:/opt/hadoop/share/hadoop/hdfs/lib/json-simple-1.1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/animal-sniffer-annotations-1.17.jar:/opt/hadoop/share/hadoop/hdfs/lib/jsr305-3.0.2.jar:/opt/hadoop/share/hadoop/hdfs/lib/leveldbjni-all-1.8.jar:/opt/hadoop/share/hadoop/hdfs/lib/dnsjava-2.1.7.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-compress-1.21.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-all-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-resolver-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-server-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/jersey-json-1.20.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-text-1.10.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-codec-1.15.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-io-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-handler-ssl-ocsp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/guava-27.0-jre.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerby-xdr-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/httpcore-4.4.13.jar:/opt/hadoop/share/hadoop/hdfs/lib/gson-2.9.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-daemon-1.0.13.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-util-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/httpclient-4.5.13.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-native-unix-common-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/zookeeper-jute-3.6.3.jar:/opt/hadoop/share/hadoop/hdfs/lib/hadoop-annotations-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/lib/jaxb-api-2.2.11.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-http-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/kotlin-stdlib-1.4.10.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-native-epoll-4.1.89.Final-linux-aarch_64.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-common-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-simplekdc-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/audience-annotations-0.5.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-resolver-dns-classes-macos-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jsr311-api-1.1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-http2-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-webapp-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-http-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-memcache-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jersey-servlet-1.19.4.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-native-kqueue-4.1.89.Final-osx-aarch_64.jar:/opt/hadoop/share/hadoop/hdfs/lib/protobuf-java-2.5.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/curator-client-5.2.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/jersey-server-1.19.4.jar:/opt/hadoop/share/hadoop/hdfs/lib/jersey-core-1.19.4.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-lang3-3.12.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-logging-1.1.3.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-crypto-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/failureaccess-1.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-math3-3.1.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-classes-kqueue-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-resolver-dns-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-handler-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jcip-annotations-1.0-1.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-beanutils-1.9.4.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-dns-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/nimbus-jose-jwt-9.8.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-socks-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/jaxb-impl-2.2.3-1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-xml-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-common-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-resolver-dns-native-macos-4.1.89.Final-osx-x86_64.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-sctp-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerby-config-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-util-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/woodstox-core-5.4.0.jar:/opt/hadoop/share/hadoop/hdfs/lib/token-provider-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/kerb-client-1.0.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/jackson-databind-2.12.7.1.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-handler-proxy-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-transport-native-kqueue-4.1.89.Final-osx-x86_64.jar:/opt/hadoop/share/hadoop/hdfs/lib/netty-codec-mqtt-4.1.89.Final.jar:/opt/hadoop/share/hadoop/hdfs/lib/reload4j-1.2.22.jar:/opt/hadoop/share/hadoop/hdfs/lib/jsch-0.1.55.jar:/opt/hadoop/share/hadoop/hdfs/lib/jackson-annotations-2.12.7.jar:/opt/hadoop/share/hadoop/hdfs/lib/commons-collections-3.2.2.jar:/opt/hadoop/share/hadoop/hdfs/lib/jetty-servlet-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-client-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-rbf-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-native-client-3.3.6-tests.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-native-client-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-nfs-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-client-3.3.6-tests.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-httpfs-3.3.6.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-rbf-3.3.6-tests.jar:/opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-3.3.6-tests.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.3.6-tests.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-nativetask-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-shuffle-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-uploader-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-app-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-plugins-3.3.6.jar:/opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.3.6.jar:/opt/hadoop/share/hadoop/yarn:/opt/hadoop/share/hadoop/yarn/lib/jna-5.2.0.jar:/opt/hadoop/share/hadoop/yarn/lib/mssql-jdbc-6.2.1.jre7.jar:/opt/hadoop/share/hadoop/yarn/lib/aopalliance-1.0.jar:/opt/hadoop/share/hadoop/yarn/lib/swagger-annotations-1.5.4.jar:/opt/hadoop/share/hadoop/yarn/lib/json-io-2.5.1.jar:/opt/hadoop/share/hadoop/yarn/lib/javax-websocket-server-impl-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/jline-3.9.0.jar:/opt/hadoop/share/hadoop/yarn/lib/javax.websocket-client-api-1.0.jar:/opt/hadoop/share/hadoop/yarn/lib/jackson-jaxrs-json-provider-2.12.7.jar:/opt/hadoop/share/hadoop/yarn/lib/guice-4.0.jar:/opt/hadoop/share/hadoop/yarn/lib/jetty-plus-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/websocket-server-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/bcprov-jdk15on-1.68.jar:/opt/hadoop/share/hadoop/yarn/lib/websocket-api-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/jersey-guice-1.19.4.jar:/opt/hadoop/share/hadoop/yarn/lib/asm-commons-9.4.jar:/opt/hadoop/share/hadoop/yarn/lib/jakarta.xml.bind-api-2.3.2.jar:/opt/hadoop/share/hadoop/yarn/lib/javax-websocket-client-impl-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/jetty-jndi-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/websocket-common-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/websocket-client-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/websocket-servlet-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/java-util-1.9.0.jar:/opt/hadoop/share/hadoop/yarn/lib/guice-servlet-4.0.jar:/opt/hadoop/share/hadoop/yarn/lib/fst-2.50.jar:/opt/hadoop/share/hadoop/yarn/lib/asm-tree-9.4.jar:/opt/hadoop/share/hadoop/yarn/lib/ehcache-3.3.1.jar:/opt/hadoop/share/hadoop/yarn/lib/jersey-client-1.19.4.jar:/opt/hadoop/share/hadoop/yarn/lib/jetty-annotations-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/jackson-module-jaxb-annotations-2.12.7.jar:/opt/hadoop/share/hadoop/yarn/lib/objenesis-2.6.jar:/opt/hadoop/share/hadoop/yarn/lib/jackson-jaxrs-base-2.12.7.jar:/opt/hadoop/share/hadoop/yarn/lib/geronimo-jcache_1.0_spec-1.0-alpha-1.jar:/opt/hadoop/share/hadoop/yarn/lib/snakeyaml-2.0.jar:/opt/hadoop/share/hadoop/yarn/lib/javax.websocket-api-1.0.jar:/opt/hadoop/share/hadoop/yarn/lib/jetty-client-9.4.51.v20230217.jar:/opt/hadoop/share/hadoop/yarn/lib/javax.inject-1.jar:/opt/hadoop/share/hadoop/yarn/lib/bcpkix-jdk15on-1.68.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-sharedcachemanager-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-web-proxy-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-common-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-client-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-router-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-applications-unmanaged-am-launcher-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-tests-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-services-core-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-applicationhistoryservice-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-api-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-registry-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-applications-mawo-core-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-timeline-pluginstorage-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-resourcemanager-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-common-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-server-nodemanager-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-3.3.6.jar:/opt/hadoop/share/hadoop/yarn/hadoop-yarn-services-api-3.3.6.jar
+STARTUP_MSG:   build = https://github.com/apache/hadoop.git -r 1be78238728da9266a4f88195058f08fd012bf9c; compiled by 'ubuntu' on 2023-06-18T08:22Z
+STARTUP_MSG:   java = 1.8.0_382
+************************************************************/
+2023-09-25 02:51:33,037 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]
+2023-09-25 02:51:33,100 INFO namenode.NameNode: createNameNode [-format]
+2023-09-25 02:51:33,422 INFO namenode.NameNode: Formatting using clusterid: CID-e29d0b30-d7dd-4176-9254-7e9af1ca6153
+2023-09-25 02:51:33,448 INFO namenode.FSEditLog: Edit logging is async:true
+2023-09-25 02:51:33,469 INFO namenode.FSNamesystem: KeyProvider: null
+2023-09-25 02:51:33,470 INFO namenode.FSNamesystem: fsLock is fair: true
+2023-09-25 02:51:33,471 INFO namenode.FSNamesystem: Detailed lock hold time metrics enabled: false
+2023-09-25 02:51:33,475 INFO namenode.FSNamesystem: fsOwner                = root (auth:SIMPLE)
+2023-09-25 02:51:33,475 INFO namenode.FSNamesystem: supergroup             = supergroup
+2023-09-25 02:51:33,475 INFO namenode.FSNamesystem: isPermissionEnabled    = true
+2023-09-25 02:51:33,475 INFO namenode.FSNamesystem: isStoragePolicyEnabled = true
+2023-09-25 02:51:33,476 INFO namenode.FSNamesystem: HA Enabled: false
+2023-09-25 02:51:33,516 INFO common.Util: dfs.datanode.fileio.profiling.sampling.percentage set to 0. Disabling file IO profiling
+2023-09-25 02:51:33,639 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit : configured=1000, counted=60, effected=1000
+2023-09-25 02:51:33,640 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true
+2023-09-25 02:51:33,642 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000
+2023-09-25 02:51:33,643 INFO blockmanagement.BlockManager: The block deletion will start around 2023 Sep 25 02:51:33
+2023-09-25 02:51:33,644 INFO util.GSet: Computing capacity for map BlocksMap
+2023-09-25 02:51:33,644 INFO util.GSet: VM type       = 64-bit
+2023-09-25 02:51:33,645 INFO util.GSet: 2.0% max memory 875 MB = 17.5 MB
+2023-09-25 02:51:33,645 INFO util.GSet: capacity      = 2^21 = 2097152 entries
+2023-09-25 02:51:33,657 INFO blockmanagement.BlockManager: Storage policy satisfier is disabled
+2023-09-25 02:51:33,657 INFO blockmanagement.BlockManager: dfs.block.access.token.enable = false
+2023-09-25 02:51:33,662 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.threshold-pct = 0.999
+2023-09-25 02:51:33,662 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.min.datanodes = 0
+2023-09-25 02:51:33,662 INFO blockmanagement.BlockManagerSafeMode: dfs.namenode.safemode.extension = 30000
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: defaultReplication         = 1
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: maxReplication             = 512
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: minReplication             = 1
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: redundancyRecheckInterval  = 3000ms
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: encryptDataTransfer        = false
+2023-09-25 02:51:33,663 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000
+2023-09-25 02:51:33,691 INFO namenode.FSDirectory: GLOBAL serial map: bits=29 maxEntries=536870911
+2023-09-25 02:51:33,691 INFO namenode.FSDirectory: USER serial map: bits=24 maxEntries=16777215
+2023-09-25 02:51:33,691 INFO namenode.FSDirectory: GROUP serial map: bits=24 maxEntries=16777215
+2023-09-25 02:51:33,691 INFO namenode.FSDirectory: XATTR serial map: bits=24 maxEntries=16777215
+2023-09-25 02:51:33,703 INFO util.GSet: Computing capacity for map INodeMap
+2023-09-25 02:51:33,703 INFO util.GSet: VM type       = 64-bit
+2023-09-25 02:51:33,703 INFO util.GSet: 1.0% max memory 875 MB = 8.8 MB
+2023-09-25 02:51:33,703 INFO util.GSet: capacity      = 2^20 = 1048576 entries
+2023-09-25 02:51:33,703 INFO namenode.FSDirectory: ACLs enabled? true
+2023-09-25 02:51:33,703 INFO namenode.FSDirectory: POSIX ACL inheritance enabled? true
+2023-09-25 02:51:33,703 INFO namenode.FSDirectory: XAttrs enabled? true
+2023-09-25 02:51:33,704 INFO namenode.NameNode: Caching file names occurring more than 10 times
+2023-09-25 02:51:33,708 INFO snapshot.SnapshotManager: Loaded config captureOpenFiles: false, skipCaptureAccessTimeOnlyChange: false, snapshotDiffAllowSnapRootDescendant: true, maxSnapshotLimit: 65536
+2023-09-25 02:51:33,709 INFO snapshot.SnapshotManager: SkipList is disabled
+2023-09-25 02:51:33,713 INFO util.GSet: Computing capacity for map cachedBlocks
+2023-09-25 02:51:33,713 INFO util.GSet: VM type       = 64-bit
+2023-09-25 02:51:33,714 INFO util.GSet: 0.25% max memory 875 MB = 2.2 MB
+2023-09-25 02:51:33,714 INFO util.GSet: capacity      = 2^18 = 262144 entries
+2023-09-25 02:51:33,720 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.window.num.buckets = 10
+2023-09-25 02:51:33,721 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.num.users = 10
+2023-09-25 02:51:33,721 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25
+2023-09-25 02:51:33,724 INFO namenode.FSNamesystem: Retry cache on namenode is enabled
+2023-09-25 02:51:33,724 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis
+2023-09-25 02:51:33,726 INFO util.GSet: Computing capacity for map NameNodeRetryCache
+2023-09-25 02:51:33,726 INFO util.GSet: VM type       = 64-bit
+2023-09-25 02:51:33,726 INFO util.GSet: 0.029999999329447746% max memory 875 MB = 268.8 KB
+2023-09-25 02:51:33,726 INFO util.GSet: capacity      = 2^15 = 32768 entries
+2023-09-25 02:51:33,752 INFO namenode.FSImage: Allocated new BlockPoolId: BP-251218859-172.17.0.2-1695610293747
+2023-09-25 02:51:33,779 INFO common.Storage: Storage directory /tmp/hadoop-root/dfs/name has been successfully formatted.
+2023-09-25 02:51:33,847 INFO namenode.FSImageFormatProtobuf: Saving image file /tmp/hadoop-root/dfs/name/current/fsimage.ckpt_0000000000000000000 using no compression
+2023-09-25 02:51:33,932 INFO namenode.FSImageFormatProtobuf: Image file /tmp/hadoop-root/dfs/name/current/fsimage.ckpt_0000000000000000000 of size 399 bytes saved in 0 seconds .
+2023-09-25 02:51:33,945 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid >= 0
+2023-09-25 02:51:33,962 INFO namenode.FSNamesystem: Stopping services started for active state
+2023-09-25 02:51:33,962 INFO namenode.FSNamesystem: Stopping services started for standby state
+2023-09-25 02:51:33,965 INFO namenode.FSImage: FSImageSaver clean checkpoint: txid=0 when meet shutdown.
+2023-09-25 02:51:33,965 INFO namenode.NameNode: SHUTDOWN_MSG:
+/************************************************************
+Industrial University of HoChiMinh City
+SHUTDOWN_MSG: Shutting down NameNode at 33ccf85cf971/172.17.0.2
+************************************************************/
+Starting namenodes on [localhost]
+localhost: Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+Starting datanodes
+localhost: Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+Starting secondary namenodes [33ccf85cf971]
+33ccf85cf971: Warning: Permanently added '33ccf85cf971' (ED25519) to the list of known hosts.
+Starting resourcemanager
+Starting nodemanagers
+localhost: Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+WARNING: Use of this script to start the MR JobHistory daemon is deprecated.
+WARNING: Attempting to execute replacement "mapred --daemon start" instead.
+root@33ccf85cf971:/# hdfs dfs -ls /
+Found 1 items
+drwxrwx---   - root supergroup          0 2023-09-25 02:51 /tmp
+root@33ccf85cf971:/# hdfs dfs -put -f ./iuh.txt /
+put: `./iuh.txt': No such file or directory
+root@33ccf85cf971:/# vim ./iuh.txt
+root@33ccf85cf971:/# hdfs dfs -put -f ./iuh.txt /
+root@33ccf85cf971:/# hadoop jar $JARs -input /iuh.txt -output output -mapper /test/mapper.py -reducer /test/reducer.py
+packageJobJar: [/tmp/hadoop-unjar3429080773221231635/] [] /tmp/streamjob1768394693582128370.jar tmpDir=null
+2023-09-25 02:54:23,258 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /127.0.0.1:8032
+2023-09-25 02:54:23,379 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /127.0.0.1:8032
+2023-09-25 02:54:23,566 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/root/.staging/job_1695610306407_0001
+2023-09-25 02:54:24,209 INFO mapred.FileInputFormat: Total input files to process : 1
+2023-09-25 02:54:24,699 INFO mapreduce.JobSubmitter: number of splits:2
+2023-09-25 02:54:24,843 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1695610306407_0001
+2023-09-25 02:54:24,843 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2023-09-25 02:54:24,966 INFO conf.Configuration: resource-types.xml not found
+2023-09-25 02:54:24,966 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2023-09-25 02:54:25,312 INFO impl.YarnClientImpl: Submitted application application_1695610306407_0001
+2023-09-25 02:54:25,350 INFO mapreduce.Job: The url to track the job: http://33ccf85cf971:8088/proxy/application_1695610306407_0001/
+2023-09-25 02:54:25,351 INFO mapreduce.Job: Running job: job_1695610306407_0001
+2023-09-25 02:54:30,462 INFO mapreduce.Job: Job job_1695610306407_0001 running in uber mode : false
+2023-09-25 02:54:30,463 INFO mapreduce.Job:  map 0% reduce 0%
+2023-09-25 02:54:34,506 INFO mapreduce.Job: Task Id : attempt_1695610306407_0001_m_000000_0, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:54:34,525 INFO mapreduce.Job: Task Id : attempt_1695610306407_0001_m_000001_0, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:54:37,545 INFO mapreduce.Job: Task Id : attempt_1695610306407_0001_m_000000_1, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:54:39,557 INFO mapreduce.Job: Task Id : attempt_1695610306407_0001_m_000001_1, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:54:40,566 INFO mapreduce.Job: Task Id : attempt_1695610306407_0001_m_000000_2, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:54:42,579 INFO mapreduce.Job: Task Id : attempt_1695610306407_0001_m_000001_2, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:54:45,601 INFO mapreduce.Job:  map 100% reduce 100%
+2023-09-25 02:54:46,613 INFO mapreduce.Job: Job job_1695610306407_0001 failed with state FAILED due to: Task failed task_1695610306407_0001_m_000000
+Job failed as tasks failed. failedMaps:1 failedReduces:0 killedMaps:0 killedReduces: 0
+
+2023-09-25 02:54:46,676 INFO mapreduce.Job: Counters: 14
+        Job Counters
+                Failed map tasks=7
+                Killed map tasks=1
+                Killed reduce tasks=1
+                Launched map tasks=8
+                Other local map tasks=6
+                Data-local map tasks=2
+                Total time spent by all maps in occupied slots (ms)=19835
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=19835
+                Total vcore-milliseconds taken by all map tasks=19835
+                Total megabyte-milliseconds taken by all map tasks=20311040
+        Map-Reduce Framework
+                CPU time spent (ms)=0
+                Physical memory (bytes) snapshot=0
+                Virtual memory (bytes) snapshot=0
+2023-09-25 02:54:46,676 ERROR streaming.StreamJob: Job not successful!
+Streaming Command Failed!
+root@33ccf85cf971:/# hdfs dfs -rmr /user/root/output
+rmr: DEPRECATED: Please use '-rm -r' instead.
+Deleted /user/root/output
+root@33ccf85cf971:/# hadoop jar $JARs -input /iuh.txt -output output -mapper /test/mapper.py -reducer /test/reducer.py
+packageJobJar: [/tmp/hadoop-unjar4334539651634703836/] [] /tmp/streamjob5701153823064725242.jar tmpDir=null
+2023-09-25 02:55:06,208 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /127.0.0.1:8032
+2023-09-25 02:55:06,347 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /127.0.0.1:8032
+2023-09-25 02:55:06,540 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/root/.staging/job_1695610306407_0002
+2023-09-25 02:55:07,129 INFO mapred.FileInputFormat: Total input files to process : 1
+2023-09-25 02:55:07,589 INFO mapreduce.JobSubmitter: number of splits:2
+2023-09-25 02:55:08,096 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1695610306407_0002
+2023-09-25 02:55:08,096 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2023-09-25 02:55:08,212 INFO conf.Configuration: resource-types.xml not found
+2023-09-25 02:55:08,213 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2023-09-25 02:55:08,260 INFO impl.YarnClientImpl: Submitted application application_1695610306407_0002
+2023-09-25 02:55:08,290 INFO mapreduce.Job: The url to track the job: http://33ccf85cf971:8088/proxy/application_1695610306407_0002/
+2023-09-25 02:55:08,291 INFO mapreduce.Job: Running job: job_1695610306407_0002
+2023-09-25 02:55:13,352 INFO mapreduce.Job: Job job_1695610306407_0002 running in uber mode : false
+2023-09-25 02:55:13,353 INFO mapreduce.Job:  map 0% reduce 0%
+2023-09-25 02:55:17,396 INFO mapreduce.Job: Task Id : attempt_1695610306407_0002_m_000000_0, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:55:17,408 INFO mapreduce.Job: Task Id : attempt_1695610306407_0002_m_000001_0, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:55:21,436 INFO mapreduce.Job: Task Id : attempt_1695610306407_0002_m_000000_1, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:55:22,443 INFO mapreduce.Job: Task Id : attempt_1695610306407_0002_m_000001_1, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:55:25,455 INFO mapreduce.Job: Task Id : attempt_1695610306407_0002_m_000000_2, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:55:27,467 INFO mapreduce.Job: Task Id : attempt_1695610306407_0002_m_000001_2, Status : FAILED
+Error: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:463)
+        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:350)
+        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:178)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1899)
+        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 9 more
+Caused by: java.lang.RuntimeException: Error in configuring object
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:115)
+        at org.apache.hadoop.util.ReflectionUtils.setConf(ReflectionUtils.java:81)
+        at org.apache.hadoop.util.ReflectionUtils.newInstance(ReflectionUtils.java:140)
+        at org.apache.hadoop.mapred.MapRunner.configure(MapRunner.java:38)
+        ... 14 more
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.hadoop.util.ReflectionUtils.setJobConf(ReflectionUtils.java:112)
+        ... 17 more
+Caused by: java.lang.RuntimeException: configuration exception
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:222)
+        at org.apache.hadoop.streaming.PipeMapper.configure(PipeMapper.java:66)
+        ... 22 more
+Caused by: java.io.IOException: Cannot run program "/test/mapper.py": error=2, No such file or directory
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+        at org.apache.hadoop.streaming.PipeMapRed.configure(PipeMapRed.java:209)
+        ... 23 more
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.lang.UNIXProcess.forkAndExec(Native Method)
+        at java.lang.UNIXProcess.<init>(UNIXProcess.java:247)
+        at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+        at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+        ... 24 more
+
+2023-09-25 02:55:29,480 INFO mapreduce.Job:  map 100% reduce 100%
+2023-09-25 02:55:30,491 INFO mapreduce.Job: Job job_1695610306407_0002 failed with state FAILED due to: Task failed task_1695610306407_0002_m_000000
+Job failed as tasks failed. failedMaps:1 failedReduces:0 killedMaps:0 killedReduces: 0
+
+2023-09-25 02:55:30,538 INFO mapreduce.Job: Counters: 11
+        Job Counters
+                Failed map tasks=7
+                Killed map tasks=1
+                Killed reduce tasks=1
+                Launched map tasks=7
+                Other local map tasks=5
+                Data-local map tasks=2
+                Total time spent by all maps in occupied slots (ms)=18218
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=18218
+                Total vcore-milliseconds taken by all map tasks=18218
+                Total megabyte-milliseconds taken by all map tasks=18655232
+2023-09-25 02:55:30,538 ERROR streaming.StreamJob: Job not successful!
+Streaming Command Failed!
+root@33ccf85cf971:/#

@@ -1,0 +1,132 @@
+PS C:\Users\GF66\Desktop\Disk_D\nhap_mon_dl_lon\lab5> docker ps
+865dc5afe919   bitnami/kafka:3.3          "/opt/bitnami/script…"   2 minutes ago   Up About a minute   0.0.0.0:9092->9092/tcp                                 kafka
+48bcdcd50353   bitnami/spark:3.3          "/opt/bitnami/script…"   2 minutes ago   Up About a minute   0.0.0.0:8080->8080/tcp                                 spark_master
+daa75f1fb43f   bitnami/cassandra:latest   "/opt/bitnami/script…"   2 minutes ago   Up About a minute   7000/tcp, 0.0.0.0:9042->9042/tcp                       cassandra
+1d2f1c3a4165   bitnami/zookeeper:3.8      "/opt/bitnami/script…"   2 minutes ago   Up About a minute   2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp, 8080/tcp   zookeeper
+
+
+
+PS C:\Users\GF66\Desktop\Disk_D\nhap_mon_dl_lon\lab5> docker exec -it 865dc5afe919 bash
+I have no name!@kafka:/$ bin/kafka-topics.sh --create --topic odom --partitions 1 --replication-factor 1 -bootstrap-server localhost:9092
+bash: kafka$: command not found
+
+I have no name!@kafka:/$ cd bin
+I have no name!@kafka:/bin$ kafka-topics.sh --create --topic odom --partitions 1 --replication-factor 1 -bootstrap-server localhost:9092
+Created topic odom.
+
+I have no name!@kafka:/bin$ cd ..
+I have no name!@kafka:/$ opt/bitnami/zookeeper/bin/zkCli.sh -server localhost:2181
+bash: opt/bitnami/zookeeper/bin/zkCli.sh: No such file or directory
+I have no name!@kafka:/opt/bitnami$ exit
+exit
+
+
+
+PS C:\Users\GF66\Desktop\Disk_D\nhap_mon_dl_lon\lab5> docker exec -it 1d2f1c3a4165 bash
+I have no name!@zookeeper:/$ ls
+bin  bitnami  boot  dev  entrypoint.sh  etc  home  lib  lib64  media  mnt  opt  proc  root  run  run.sh  sbin  srv  sys  tmp  usr  var
+I have no name!@zookeeper:/$ cd opt
+I have no name!@zookeeper:/opt$ ls
+bitnami
+I have no name!@zookeeper:/opt$ cd bitnami
+I have no name!@zookeeper:/opt/bitnami$ ls
+base  common  java  licenses  scripts  zookeeper
+I have no name!@zookeeper:/opt/bitnami$ cd zookeeper
+I have no name!@zookeeper:/opt/bitnami/zookeeper$ ls
+LICENSE.txt  NOTICE.txt  README.md  README_packaging.md  bin  conf  docs  lib  licenses  logs
+I have no name!@zookeeper:/opt/bitnami/zookeeper$ cd bin
+I have no name!@zookeeper:/opt/bitnami/zookeeper/bin$ ls
+README.txt    zkCli.cmd  zkEnv.cmd  zkServer-initialize.sh  zkServer.sh            zkSnapShotToolkit.sh    zkSnapshotComparer.sh  zkTxnLogToolkit.sh
+zkCleanup.sh  zkCli.sh   zkEnv.sh   zkServer.cmd            zkSnapShotToolkit.cmd  zkSnapshotComparer.cmd  zkTxnLogToolkit.cmd
+
+I have no name!@zookeeper:/opt/bitnami/zookeeper/bin$ zkCli.sh -server localhost:2181
+/opt/bitnami/java/bin/java
+Connecting to localhost:2181
+2023-10-12 04:01:39,496 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:zookeeper.version=3.8.2-139d619b58292d7734b4fc83a0f44be4e7b0c986, built on 2023-07-05 19:24 UTC
+2023-10-12 04:01:39,498 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:host.name=zookeeper
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.version=11.0.20
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.vendor=BellSoft
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.home=/opt/bitnami/java
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.class.path=/opt/bitnami/zookeeper/bin/../zookeeper-server/target/classes:/opt/bitnami/zookeeper/bin/../build/classes:/opt/bitnami/zookeeper/bin/../zookeeper-server/target/lib/*.jar:/opt/bitnami/zookeeper/bin/../build/lib/*.jar:/opt/bitnami/zookeeper/bin/../lib/zookeeper-prometheus-metrics-3.8.2.jar:/opt/bitnami/zookeeper/bin/../lib/zookeeper-jute-3.8.2.jar:/opt/bitnami/zookeeper/bin/../lib/zookeeper-3.8.2.jar:/opt/bitnami/zookeeper/bin/../lib/snappy-java-1.1.10.1.jar:/opt/bitnami/zookeeper/bin/../lib/slf4j-api-1.7.30.jar:/opt/bitnami/zookeeper/bin/../lib/simpleclient_servlet-0.9.0.jar:/opt/bitnami/zookeeper/bin/../lib/simpleclient_hotspot-0.9.0.jar:/opt/bitnami/zookeeper/bin/../lib/simpleclient_common-0.9.0.jar:/opt/bitnami/zookeeper/bin/../lib/simpleclient-0.9.0.jar:/opt/bitnami/zookeeper/bin/../lib/netty-transport-native-unix-common-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-transport-native-epoll-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-transport-classes-epoll-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-transport-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-resolver-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-handler-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-common-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-codec-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/netty-buffer-4.1.94.Final.jar:/opt/bitnami/zookeeper/bin/../lib/metrics-core-4.1.12.1.jar:/opt/bitnami/zookeeper/bin/../lib/logback-core-1.2.10.jar:/opt/bitnami/zookeeper/bin/../lib/logback-classic-1.2.10.jar:/opt/bitnami/zookeeper/bin/../lib/jline-2.14.6.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-util-ajax-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-util-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-servlet-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-server-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-security-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-io-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/jetty-http-9.4.51.v20230217.jar:/opt/bitnami/zookeeper/bin/../lib/javax.servlet-api-3.1.0.jar:/opt/bitnami/zookeeper/bin/../lib/jackson-databind-2.15.2.jar:/opt/bitnami/zookeeper/bin/../lib/jackson-core-2.15.2.jar:/opt/bitnami/zookeeper/bin/../lib/jackson-annotations-2.15.2.jar:/opt/bitnami/zookeeper/bin/../lib/commons-io-2.11.0.jar:/opt/bitnami/zookeeper/bin/../lib/commons-cli-1.5.0.jar:/opt/bitnami/zookeeper/bin/../lib/audience-annotations-0.12.0.jar:/opt/bitnami/zookeeper/bin/../zookeeper-*.jar:/opt/bitnami/zookeeper/bin/../zookeeper-server/src/main/resources/lib/*.jar:/opt/bitnami/zookeeper/bin/../conf:
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.io.tmpdir=/tmp
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.compiler=<NA>
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.name=Linux
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.arch=amd64
+2023-10-12 04:01:39,499 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.version=5.10.16.3-microsoft-standard-WSL2
+2023-10-12 04:01:39,500 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:user.name=?
+2023-10-12 04:01:39,500 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:user.home=?
+2023-10-12 04:01:39,500 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:user.dir=/opt/bitnami/zookeeper/bin
+2023-10-12 04:01:39,500 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.memory.free=1013MB
+2023-10-12 04:01:39,500 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.memory.max=1024MB
+2023-10-12 04:01:39,500 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.memory.total=1024MB
+2023-10-12 04:01:39,503 [myid:] - INFO  [main:o.a.z.ZooKeeper@637] - Initiating client connection, connectString=localhost:2181 sessionTimeout=30000 watcher=org.apache.zookeeper.ZooKeeperMain$MyWatcher@131774fe
+2023-10-12 04:01:39,510 [myid:] - INFO  [main:o.a.z.c.X509Util@78] - Setting -D jdk.tls.rejectClientInitiatedRenegotiation=true to disable client-initiated TLS renegotiation
+2023-10-12 04:01:39,515 [myid:] - INFO  [main:o.a.z.ClientCnxnSocket@239] - jute.maxbuffer value is 1048575 Bytes
+2023-10-12 04:01:39,523 [myid:] - INFO  [main:o.a.z.ClientCnxn@1741] - zookeeper.request.timeout value is 0. feature enabled=false
+Welcome to ZooKeeper!
+2023-10-12 04:01:39,548 [myid:localhost:2181] - INFO  [main-SendThread(localhost:2181):o.a.z.ClientCnxn$SendThread@1177] - Opening socket connection to server localhost/127.0.0.1:2181.
+2023-10-12 04:01:39,549 [myid:localhost:2181] - INFO  [main-SendThread(localhost:2181):o.a.z.ClientCnxn$SendThread@1179] - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+JLine support is enabled
+2023-10-12 04:01:39,580 [myid:localhost:2181] - INFO  [main-SendThread(localhost:2181):o.a.z.ClientCnxn$SendThread@1011] - Socket connection established, initiating session, client: /127.0.0.1:59516, server: localhost/127.0.0.1:2181
+2023-10-12 04:01:39,593 [myid:localhost:2181] - INFO  [main-SendThread(localhost:2181):o.a.z.ClientCnxn$SendThread@1452] - Session establishment complete on server localhost/127.0.0.1:2181, session id 
+= 0x1000060020e0001, negotiated timeout = 30000
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null
+[zk: localhost:2181(CONNECTED) 0] ls /brokers/topics
+[odom]
+[zk: localhost:2181(CONNECTED) 1] 
+
+
+
+PS C:\Users\GF66\Desktop\Disk_D\nhap_mon_dl_lon\lab5> docker exec -it daa75f1fb43f bash
+I have no name!@cassandra:/$ cqlsh -u cassandra -p cassandra
+
+Warning: Using a password on the command line interface can be insecure.  
+Recommendation: use the credentials file to securely provide the password.
+
+Connected to My Cluster at 127.0.0.1:9042
+[cqlsh 6.1.0 | Cassandra 4.1.3 | CQL spec 3.4.6 | Native protocol v5]
+Use HELP for help.
+
+cassandra@cqlsh> CREATE KEYSPACE ros WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
+cassandra@cqlsh> create table ros.odometry(
+   ...         id int primary key, 
+   ...         posex float,        
+   ...         posey float,        
+   ...         posez float,  
+   ...         orientx float,
+   ...         orienty float,
+   ...         orientz float,
+   ...         orientw float);
+cassandra@cqlsh> DESCRIBE ros.odometry
+
+CREATE TABLE ros.odometry (
+    id int PRIMARY KEY,
+    orientw float,
+    orientx float,
+    orienty float,
+    orientz float,
+    posex float,
+    posey float,
+    posez float
+) WITH additional_write_policy = '99p'
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND cdc = false
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '16', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND memtable = 'default'
+    AND crc_check_chance = 1.0
+    AND default_time_to_live = 0
+    AND extensions = {}
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair = 'BLOCKING'
+    AND speculative_retry = '99p';
+cassandra@cqlsh>
